@@ -23,6 +23,9 @@ app.use((req, res, next) => {
 });
 
 // Put routes here
+app.get('/', (req, res) => {
+    res.json('hello')
+})
 app.use('/api/todos', require('./routes/todoRoute'))
 
 // error handler
