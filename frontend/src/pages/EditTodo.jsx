@@ -13,7 +13,7 @@ const EditTodo = () => {
   // Get todo you want to edit
   useEffect(() => {
     axios
-      .get("https://mern-todo-apps-api.vercel.app/", id)
+      .get(`${TODO_API}/${id}`)
       .then((res) => {
         setTodo(res.data); // Assuming the response is an object with a 'todo' property
       })
@@ -23,9 +23,7 @@ const EditTodo = () => {
   // Update todo
   const handleUpdate = async () => {
     try {
-      await axios.put(`${"https://mern-todo-apps-api.vercel.app"}/${id}`, {
-        todo,
-      });
+      await axios.put(`${TODO_API}/${id}`, { todo });
       nav("/"); // Redirect to the home page after successful update
     } catch (error) {
       alert(error.response.data);

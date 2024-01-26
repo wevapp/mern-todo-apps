@@ -12,16 +12,14 @@ const Home = () => {
 
   // fetch data from serviceAPI
   useEffect(() => {
-    axios("https://mern-todo-apps-api.vercel.app").then((res) =>
-      setTodosData(res.data)
-    );
+    axios(TODO_API).then((res) => setTodosData(res.data));
   }, []);
 
   // Create new todos
   const handleAdd = async () => {
     // same name from frontend ({todo})to backend (todo)
     axios
-      .post("https://mern-todo-apps-api.vercel.app", { todo })
+      .post(TODO_API, { todo })
       .then((res) => {
         location.reload();
       })
@@ -40,7 +38,7 @@ const Home = () => {
   // Delete todo
   const handleDelete = async (dataId) => {
     axios
-      .delete("https://mern-todo-apps-api.vercel.app/", dataId)
+      .delete(`${TODO_API}/${dataId}`)
       .then((res) => {
         location.reload();
       })
