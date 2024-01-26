@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const colors = require('colors')
 const express = require('express')
 const app = express()
+const PORT = 3000
 
 // import error handler
 const { errorHandler } = require('./middleware/errorMiddleware')
@@ -28,9 +29,9 @@ app.use('/api/todos', require('./routes/todoRoute'))
 app.use(errorHandler)
 
 // connect to database
-mongoose.connect(process.env.MONGO_URI, { dbName: 'tododatabase' })
+mongoose.connect('mongodb+srv://test:alltesting@alltest.cnt2gif.mongodb.net/?retryWrites=true&w=majority', { dbName: 'tododatabase' })
     .then(() => {
-        app.listen(process.env.PORT, () => {
-            console.log(`Connected to database and running Server on port ${process.env.PORT}`.cyan.underline);
+        app.listen(PORT, () => {
+            console.log(`Connected to database and running Server on port ${PORT}`.cyan.underline);
         })
     })
