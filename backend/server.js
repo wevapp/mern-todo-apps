@@ -6,10 +6,14 @@ const express = require('express')
 const app = express()
 
 // import error handler
-const {errorHandler} = require('./middleware/errorMiddleware')
+const { errorHandler } = require('./middleware/errorMiddleware')
 
 // Middleware
-app.use(cors())
+app.use(cors({
+    origin: [""],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use((req, res, next) => {
@@ -24,9 +28,9 @@ app.use('/api/todos', require('./routes/todoRoute'))
 app.use(errorHandler)
 
 // connect to database
-mongoose.connect(process.env.MONGO_URI, { dbName: 'tododatabase'})
-.then(() => {
-    app.listen(process.env.PORT, () => {
-        console.log(`Connected to database and running Server on port ${process.env.PORT}`.cyan.underline);
+mongoose.connect(process.env.MONGO_URI, { dbName: 'tododatabase' })
+    .then(() => {
+        app.listen(process.env.PORT, () => {
+            console.log(`Connected to database and running Server on port ${process.env.PORT}`.cyan.underline);
+        })
     })
-})
